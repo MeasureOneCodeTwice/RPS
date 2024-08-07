@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="style.css">
+		<meta charset="UTF-8">
+		<title>
+			Rock paper scissors
+		</title>
+	</head>
+</html>
+
+<body>
+
+	<div id="score_box">
+		<div id="score_container">
+			<div id="score_title">
+				Score
+			</div>
+
+			<div id="score_display">
+				<div style="text-align: right" class="scorebox" id="player_scorebox">
+					0
+				</div>
+
+				<div id="dashbox">
+					-
+				</div>
+
+				<div class="scorebox" id="opponent_scorebox">
+					0
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="button_container_parent">
+		<div id="button_container">
+
+			<div id="rock">
+				rock
+			</div>
+
+			<div id="paper">
+				paper
+			</div>
+
+			<div id="scissors">
+				scissors
+			</div>
+
+		</div>
+	</div>
+
+</body>
+
+<script>
+
+	player_score = 0;
+	opponent_score = 0;
+
+	player_scorebox = document.querySelector("#player_scorebox")
+	opponent_scorebox = document.querySelector("#opponent_scorebox")
+
+	rock_button = document.querySelector("#rock");
+	paper_button = document.querySelector("#paper");
+	scissors_button = document.querySelector("#scissors");
+
+
+	function rpsmatch(user_choice)
+	{
+		rps_to_int = new Map([ ["rock", 0], ["paper", 1], ["scissors", 2] ])
+
+		user_choice = rps_to_int.get(user_choice)
+		comp_choice = Math.floor(Math.random()*3)
+
+		result = "" 
+
+		if(comp_choice == user_choice)
+		{
+			result = "Draw"
+		}
+		else if(comp_choice > user_choice &&
+			!(user_choice == 0 && comp_choice == 2))
+		{
+			//computer wins
+			opponent_score++
+			opponent_scorebox.textContent = opponent_score
+			result = "You lose :("
+		} else {
+			player_score++
+			player_scorebox.textContent = player_score
+			result = "You win!"
+		}
+
+		display_result(result)
+
+	}
+
+
+	function display_result(result_str)
+	{
+		body = document.querySelector("body")
+		result_div = document.querySelector("#result_div")
+		if(result_div == undefined)
+		{
+			result_div = document.createElement("div")
+			result_div.id = "result_div"
+			result_div.style = "margin-top: 10vh; font-size: 10vw; text-align: center" 
+			body.appendChild(result_div)
+		}
+		result_div.textContent = result_str
+	}
+
+	rock_button.addEventListener("click", () => rpsmatch("rock") ) 
+	paper_button.addEventListener("click", () => rpsmatch("paper") ) 
+	scissors_button.addEventListener("click", () => rpsmatch("scissors") ) 
+
+</script>
+
