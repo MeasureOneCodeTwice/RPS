@@ -74,25 +74,24 @@
 		comp_choice = Math.floor(Math.random()*3)
 
 		result = "" 
+		const NUM_OPTIONS = 3
 
-		if(comp_choice == user_choice)
+		if( comp_choice == ((user_choice + 1) % NUM_OPTIONS))
 		{
-			result = "Draw"
-		}
-		else if(comp_choice > user_choice &&
-			!(user_choice == 0 && comp_choice == 2))
-		{
-			//computer wins
-			opponent_score++
-			opponent_scorebox.textContent = opponent_score
-			result = "You lose :("
-		} else {
 			player_score++
 			player_scorebox.textContent = player_score
 			result = "You win!"
 		}
+		else if(  user_choice == ((comp_choice + 1) % NUM_OPTIONS))
+		{
+			opponent_score++
+			opponent_scorebox.textContent = opponent_score
+			result = "You lose :("
+		} else {
+			result = "Draw"
+		}
 
-		display_result(result)
+		display_result(comp_choice)
 
 	}
 
